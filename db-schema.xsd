@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="trends">
+		<xs:all>
+			<xs:element name="trendsgroup" type="trendsGroupType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:all>
+	</ex:element>
+
+	<xs:complexType name="trendsGroupType">
+		<xs:all>
+			<xs:element name="trend" type="trendType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:all>
+
+		<xs:attribute name="year" type="gYear"/>
+		<xs:attribute name="month" type="gMonth"/>
+		<xs:attribute name="day" type="gDay"/>
+		<xs:attribute name="hour" type="hourType"/>
+	</xs:complexType>
+
+	<xs:complexType name="trendType">
+		<xs:attribute name="name" type="string"/>
+		<xs:attribute name="query" type="string"/>
+	</xs:complexType>
+
+	<xs:simpleType name="hourType">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="23"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

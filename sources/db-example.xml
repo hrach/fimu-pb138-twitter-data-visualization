@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<trends>
+    <trendgroup year="2012" month="01" day="14" hour="15">
+        <trend name="#confessionhour" />
+        <trend name="#confessionhour" />
+        <trend name="#confessionhour" />
+    </trendgroup>
+    <trendgroup year="2012" month="01" day="14" hour="16">
+        <trend name="#confessionhour" query="&quote;nasd asda sd ad&quote;" />
+    </trendgroup>
+</trends>

@@ -8,6 +8,8 @@ import java.util.Calendar;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import org.xml.sax.SAXException;
+import java.net.URI;
+
 
 
 /**
@@ -30,13 +32,12 @@ public class StatsModelTest {
     private StatsModel model;
 
     @Before
-    public void setUp()  throws SAXException, ParserConfigurationException, IOException {
-        URI uri = StatsModelTest.class.getResource("people.xml").toURI();
-        String path = getClass().getClassLoader().getResource(".").getPath();
+    public void setUp() throws Exception, SAXException, ParserConfigurationException, IOException {
+        URI uri = StatsModelTest.class.getResource("test-db.xml").toURI();
         if (uri == null) {
             throw new IOException("Nelze nalezt testovaci XML soubor");
         }
-        model = new StatsModel(path + "/../../../../test-db.xml");
+        model = new StatsModel(uri);
     }
     
     @After

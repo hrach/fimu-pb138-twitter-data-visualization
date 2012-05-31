@@ -29,7 +29,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import 
+import java.net.URI;
 
 
 /**
@@ -42,11 +42,11 @@ public class StatsModel
 
     private XPathFactory xpathFactory;
     
-    public StatsModel(String sourceFile) throws SAXException, ParserConfigurationException, IOException
+    public StatsModel(URI uri) throws SAXException, ParserConfigurationException, IOException
     {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        doc = builder.parse(sourceFile);
+        doc = builder.parse(uri.toString());
 
         xpathFactory = XPathFactory.newInstance();
     }

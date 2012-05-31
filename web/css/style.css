@@ -170,3 +170,7 @@ div#content div.rightCol{
 div.clear {
         clear: both;
 }
+
+div.ui-datepicker {
+        font-size: 0.7em;
+}

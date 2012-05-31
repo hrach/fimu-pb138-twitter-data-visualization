@@ -45,7 +45,7 @@ public class ImportModel extends BaseModel {
         for (Map.Entry<String, ImportModelTrends> entry : trends.entrySet()) {
             
             String date = "";
-            XPathExpression expr = getxPath().compile("//trendsgroup[@date='" + date + "'");
+            XPathExpression expr = getxPath().compile("//trendsgroup[@date='" + date + "'][0]");
             Element node = (Element) expr.evaluate(doc, XPathConstants.NODE);
 
             if (node == null) {

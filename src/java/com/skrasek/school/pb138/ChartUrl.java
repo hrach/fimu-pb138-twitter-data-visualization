@@ -25,7 +25,7 @@ public class ChartUrl {
         String values = "";
         String days = "";
         String points = "";
-        String url = "https://chart.googleapis.com/chart?cht=lc&chs=480x320&chxt=x,y&chco=3072F3,ff0000,00aaaa";
+        String url = "https://chart.googleapis.com/chart?cht=lc&chs=480x320&chxt=x,y&chco=c00000,005cda,0ada00,a400da,f09800,00e0ce,e8e500,78bcfc,f69371,91ec8f";
         
         int maxday = 0;
         int maxval = 100;

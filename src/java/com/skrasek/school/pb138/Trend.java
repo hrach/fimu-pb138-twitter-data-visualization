@@ -14,21 +14,43 @@ import java.util.Map;
  */
 public class Trend {
 
-    private Map<Date, Integer> data;
+    private Map<String, Integer> data;
+    private String name;
+    private String query;
 
-    Trend()
+    Trend(String tag, String query)
     {
-        data = new HashMap<Date, Integer>();
+        this.name = tag;
+        this.query = query;
+        this.data = new HashMap<String, Integer>();
     }
 
-    void addTermin(Date datum, Integer count)
+    void addTermin(String date)
     {
-        data.put(datum, count);
+        if (data.containsKey(date)) {
+            data.put(date, data.get(date) + 1);
+        } else {
+            data.put(date, 1);
+        }
     }
 
-    int getCount(Date date)
+    int getCount(String date)
     {
-        return data.get(date).intValue();
+        if (data.containsKey(date)) {
+            return data.get(date).intValue();
+        } else {
+            return 0;
+        }
+    }
+
+    String getName()
+    {
+        return this.name;
+    }
+
+    String getQuery()
+    {
+        return this.query;
     }
 
 }

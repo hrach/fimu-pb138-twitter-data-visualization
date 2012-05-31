@@ -30,6 +30,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import java.net.URI;
+import java.util.*;
 
 
 /**
@@ -56,9 +57,27 @@ public class StatsModel
         return xpathFactory.newXPath();
     }
 
-    public void getStats(Date start, Date end)
+    public Map<String,Trend> getStats(Date start, Date end) throws XPathExpressionException
     {
-        
+        Map<String,Trend> trends = new HashMap<String,Trend>();
+
+        NodeList nodes = findData(start, end);
+        for (int i = 0; i < nodes.getLength(); i++) {
+            Element node = (Element) nodes.item(i);
+
+            String date    = ((Element) node.getParentNode()).getAttribute("date");
+            String hashTag = node.getAttribute("name");
+            String query   = node.getAttribute("query");
+
+            if (!trends.containsKey(hashTag)) {
+                trends.put(hashTag, new Trend(hashTag, query));
+            }
+
+            Trend trend = trends.get(hashTag);
+            trend.addTermin(date);
+        }
+
+        return trends;
     }
 
     public NodeList findData(Date start, Date end) throws XPathExpressionException

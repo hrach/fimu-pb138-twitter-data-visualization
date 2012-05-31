@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skrasek.school.pb138;
 
 import java.io.File;
@@ -34,27 +30,15 @@ import java.util.*;
 
 
 /**
+ * Return counted stats for trends
  * @author Jan Skrasek <hrach.cz@gmail.com>
  */
-public class StatsModel
+public class StatsModel extends BaseModel
 {
 
-    private Document doc;
-
-    private XPathFactory xpathFactory;
-    
     public StatsModel(URI uri) throws SAXException, ParserConfigurationException, IOException
     {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        doc = builder.parse(uri.toString());
-
-        xpathFactory = XPathFactory.newInstance();
-    }
-
-    XPath getxPath()
-    {
-        return xpathFactory.newXPath();
+        super(uri);
     }
 
     public Map<String,Trend> getStats(Date start, Date end) throws XPathExpressionException

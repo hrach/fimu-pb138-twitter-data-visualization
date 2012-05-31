@@ -1,8 +1,6 @@
 package com.skrasek.school.pb138;
 
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.io.*;
@@ -19,6 +17,10 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+import org.json.simple.*;
+
+
+
 
 /**
  * Importing model
@@ -26,48 +28,56 @@ import org.xml.sax.SAXException;
  */
 public class ImportModel extends BaseModel {
 
-    protected Document doc;
-    protected XPathFactory xpathFactory;
-
     public ImportModel(URI uri) throws SAXException, ParserConfigurationException, IOException
     {
         super(uri);
     }
 
-    public void importData() throws XPathExpressionException
+    public void importData()
     {
         String json = parseData();
-        Gson gson = new Gson();
         
-        Type type = new TypeToken<Map<String, ImportModelTrends>>() {}.getType();
-        Map<String, ImportModelTrends> trends = gson.fromJson(json, type);
-        
-        for (Map.Entry<String, ImportModelTrends> entry : trends.entrySet()) {
-            
-            String date = "";
-            XPathExpression expr = getxPath().compile("//trendsgroup[@date='" + date + "'][0]");
-            Element node = (Element) expr.evaluate(doc, XPathConstants.NODE);
+        JSONObject jsonObj  = (JSONObject) JSONValue.parse(json);
+        JSONObject trends = (JSONObject) jsonObj.get("trends");
+
+        for (Object key : trends.keySet()) {
+            String entryKey = key.toString();
+            String date = formatDate(entryKey);
+            Element node;
+
+            try {
+                XPathExpression expr = getxPath().compile("//trendsgroup[@date='" + date + "'][1]");
+                node = (Element) expr.evaluate(this.doc, XPathConstants.NODE);
+            } catch (XPathExpressionException ex) {
+                return;
+            }
 
             if (node == null) {
-                NodeList rootList = doc.getElementsByTagName("trends");
-                Element root = (Element) rootList.item(0);
-                
-                
+                //NodeList rootList = doc.getElementsByTagName("trends");
+                //Element root = (Element) rootList.item(0);
+
                 node = doc.createElement("trendsgroup");
                 node.setAttribute("date", date);
-                root.appendChild(node);
+                doc.getDocumentElement().appendChild(node);
             }
 
-            for (ImportModelTrend t : entry.getValue().getTrends()) {
+            JSONArray jsonArray = (JSONArray) trends.get(entryKey);
+            Iterator i = jsonArray.iterator();
+            while (i.hasNext()) {
+                JSONObject t = (JSONObject) i.next();
                 Element trend = doc.createElement("trend");
-                trend.setAttribute("name", t.getName());
-                trend.setAttribute("query", t.getQuery());
+                trend.setAttribute("name", (String) t.get("name"));
+                trend.setAttribute("query", (String) t.get("query"));
                 node.appendChild(trend);
             }
-
         }
 
         saveDb();
+    }
+
+    private String formatDate(String twDate)
+    {
+        return twDate.replace("-", "").replace(" ", "").replace(":", "");
     }
 
     private String parseData()
@@ -83,7 +93,7 @@ public class ImportModel extends BaseModel {
 
             is = u.openStream();         // throws an IOException
             dis = new DataInputStream(new BufferedInputStream(is));
-            while ((s = dis.readUTF()) != null) {
+            while ((s = dis.readLine()) != null) {
                 res += s;
             }
 

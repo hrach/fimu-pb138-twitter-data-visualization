@@ -27,7 +27,7 @@ public abstract class BaseModel {
 
     protected Document doc;
     protected XPathFactory xpathFactory;
-    protected String fileName;
+    protected URI fileName;
 
     public BaseModel(URI uri) throws SAXException, ParserConfigurationException, IOException
     {
@@ -35,7 +35,7 @@ public abstract class BaseModel {
         DocumentBuilder builder = factory.newDocumentBuilder();
         doc = builder.parse(uri.toString());
         xpathFactory = XPathFactory.newInstance();
-        fileName = uri.toString();
+        fileName = uri;
     }
 
     protected XPath getxPath()
@@ -49,7 +49,7 @@ public abstract class BaseModel {
             TransformerFactory factory = TransformerFactory.newInstance();
             Transformer transformer = factory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new FileOutputStream(fileName));
+            StreamResult result = new StreamResult(new FileOutputStream(fileName.getRawPath()));
             transformer.transform(source, result);
             return true;
         } catch (Exception e) {

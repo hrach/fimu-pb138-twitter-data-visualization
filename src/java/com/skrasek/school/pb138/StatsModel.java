@@ -71,9 +71,8 @@ public class StatsModel extends BaseModel
 
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyyMMddHHmm");
 
-        XPathExpression expr = getxPath().compile("//trendsgroup[" +
-            "@date >= " + sdf.format(start) + " and @date <= " + sdf.format(end) +
-            "]/trend");
+        String query = "//trendsgroup[@date >= " + sdf.format(start) + " and @date <= " + sdf.format(end) + "]/trend";
+        XPathExpression expr = getxPath().compile(query);
 
         return (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
     }

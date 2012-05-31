@@ -1,4 +1,4 @@
-<%@page import="java.util.List"%>
+<%@page import="java.util.Set"%>
 <%@page import="com.skrasek.school.pb138.Controller"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
@@ -36,7 +36,7 @@
                    
                     <%
                         if (request.getParameter("from") != null) {
-                            List<String> trends = controller.getTrends(request.getParameter("from"),request.getParameter("to"));
+                            Set<String> trends = controller.getTrends(request.getParameter("from"),request.getParameter("to"));
                         
                     %>
                     

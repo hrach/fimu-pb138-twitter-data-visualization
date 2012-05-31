@@ -14,21 +14,62 @@ import java.util.Map;
  */
 public class Trend {
 
-    private Map<Date, Integer> data;
+    private Map<String, Integer> data;
+    private String name;
+    private String query;
 
-    Trend()
+    public Trend(String tag, String query)
     {
-        data = new HashMap<Date, Integer>();
+        if (tag == null) {
+            throw new NullPointerException("tag name");
+        }
+
+        this.name = tag;
+        this.query = query;
+        this.data = new HashMap<String, Integer>();
     }
 
-    void addTermin(Date datum, Integer count)
+    public void addTermin(String date)
     {
-        data.put(datum, count);
+        if (data.containsKey(date)) {
+            data.put(date, data.get(date) + 1);
+        } else {
+            data.put(date, 1);
+        }
     }
 
-    int getCount(Date date)
+    public int getCount(String date)
     {
-        return data.get(date).intValue();
+        if (data.containsKey(date)) {
+            return data.get(date).intValue();
+        } else {
+            return 0;
+        }
+    }
+
+    public String getName()
+    {
+        return this.name;
+    }
+
+    public String getQuery()
+    {
+        return this.query;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        Trend t = (Trend) o;
+        return this.getName().equals(t.getName()) && this.data.equals(t.data);
+    }
+
+    @Override
+    public int hashCode() {
+        int i = 7;
+        i += 13 * getName().hashCode();
+        i += 17 * data.hashCode();
+        return i;
     }
 
 }

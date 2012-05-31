@@ -63,19 +63,16 @@ public class StatsModel
 
     public NodeList findData(Date start, Date end) throws XPathExpressionException
     {
-        //try {
-            // /doc/event[xs:date(@date) le xs:date('2011-08-31') and xs:date(@date) ge xs:date('2011-08-01')]
+        // xpath 2 approach
+        // /doc/event[xs:date(@date) le xs:date('2011-08-31') and xs:date(@date) ge xs:date('2011-08-01')]
 
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyyMMddHHmm");
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyyMMddHHmm");
 
-            XPathExpression expr = getxPath().compile("//trendsgroup[" +
-                "@date >= " + sdf.format(start) + " and @date <= " + sdf.format(end) +
-                "]/trend");
+        XPathExpression expr = getxPath().compile("//trendsgroup[" +
+            "@date >= " + sdf.format(start) + " and @date <= " + sdf.format(end) +
+            "]/trend");
 
-            return (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
-        //} catch (XPathExpressionException ex) {
-          //  return ex;
-        //}
+        return (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
     }
 
 }

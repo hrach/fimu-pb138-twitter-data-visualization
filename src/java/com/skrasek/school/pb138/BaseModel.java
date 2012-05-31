@@ -43,7 +43,7 @@ public abstract class BaseModel {
         return xpathFactory.newXPath();
     }
 
-    protected boolean saveDb() throws IOException,TransformerConfigurationException, TransformerException
+    protected boolean saveDb()
     {
         try {
             TransformerFactory factory = TransformerFactory.newInstance();

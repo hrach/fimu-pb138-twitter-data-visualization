@@ -1,27 +1,29 @@
 <?xml version="1.0" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<xs:element name="trends">
-		<xs:all>
-			<xs:element name="trendsgroup" type="trendsGroupType" minOccurs="0" maxOccurs="unbounded"/>
-		</xs:all>
-	</ex:element>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="trendsgroup" type="trendsGroupType" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 
 	<xs:complexType name="trendsGroupType">
-		<xs:all>
+		<xs:sequence>
 			<xs:element name="trend" type="trendType" minOccurs="1" maxOccurs="unbounded"/>
-		</xs:all>
+		</xs:sequence>
 
-		<xs:attribute name="date" type="dateTimeType"/>
+		<xs:attribute name="date" type="dateTimeType" use="required"/>
 	</xs:complexType>
 
 	<xs:complexType name="trendType">
-		<xs:attribute name="name" type="string"/>
-		<xs:attribute name="query" type="string" minOccurs="0"/>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="query" type="xs:string"/>
 	</xs:complexType>
 
 	<xs:simpleType name="dateTimeType">
 		<xs:restriction base="xs:string">
-			<xs:patter value="\d{12}"/>
+			<xs:pattern value="\d{12}"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>

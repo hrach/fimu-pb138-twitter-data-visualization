@@ -4,6 +4,7 @@
     Author     : Jan Skrasek <hrach.cz@gmail.com>
 --%>
 
+<%@page import="com.skrasek.school.pb138.TopTrends"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,12 +25,28 @@
 		</div>
 		<div id="content">
 			<div class="topRow">
-                            <form id="dateForm">
-				Choose time interval: <input type="text" name="from" id="from" /> - <input type="text" name="to" id="to" /> <input type="submit" name="submit" value="SUBMIT" />
+                            <%
+                                String fromstr = "";
+                                String tostr = "";
+                                if(request.getParameter("from") != null) fromstr = request.getParameter("from");
+                                if(request.getParameter("to") != null) tostr = request.getParameter("to");
+                            %>
+                            <form id="dateForm" action="index.jsp" method="POST">
+				Choose time interval: <input type="text" name="from" id="from" value="<%= fromstr %>" /> - <input type="text" name="to" id="to" value="<%= tostr %>" /> <input type="submit" name="submit" value="SUBMIT" />
                             </form>
                         </div>
+                   
+                    <%
+                        if(request.getParameter("from") != null) {
+                            TopTrends trends = new TopTrends(request.getParameter("from"),request.getParameter("to"));
+                        
+                    %>
+                    
 			<div class="leftCol">
                             <form id="trendForm">
+                                
+                                <input type="submit" name="submit" value="CREATE CHART" />
+                                
 				<div class="block">
 					<div class="title">
 						<h2>Most popular trends</h2>
@@ -67,28 +84,17 @@
 						</li>
 					</ul>
 				</div>
-				<div class="block">
-					<div class="title">
-						<h2>Additional trend</h2>
-					</div>
-					<ul>
-						<li class="large">
-							<select name="">
-								<option value="">trend#11</option>
-								<option value="">trend#12</option>
-								<option value="">trend#13</option>
-							</select>
-						</li>
-					</ul>
-				</div>
-				<input type="submit" name="submit" value="CREATE GRAPH" />
                             </form>
 			</div>
 			<div class="rightCol">
 				<img src="https://chart.googleapis.com/chart?cht=lc&chs=480x320&chd=t:60,70,20,80,90|10,20,67,22,57&chxt=x,y&chxl=0:|1|2|3|4|5|1:||20||40||60||80||100&chdl=hastag|twitter&chco=3072F3,ff0000,00aaaa" alt="chart" />
 			</div>
 			<div class="clear"></div>
+                                        <%
+                                           }
+                                        %>
 		</div>
 	</div>
+        
     </body>
 </html>

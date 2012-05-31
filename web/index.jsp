@@ -1,11 +1,9 @@
-<%-- 
-    Document   : index
-    Created on : 1.5.2012, 14:29:30
-    Author     : Jan Skrasek <hrach.cz@gmail.com>
---%>
-
-<%@page import="com.skrasek.school.pb138.TopTrends"%>
+<%@page import="java.util.List"%>
+<%@page import="com.skrasek.school.pb138.Controller"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    Controller controller = new Controller();
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,54 +35,27 @@
                         </div>
                    
                     <%
-                        if(request.getParameter("from") != null) {
-                            TopTrends trends = new TopTrends(request.getParameter("from"),request.getParameter("to"));
+                        if (request.getParameter("from") != null) {
+                            List<String> trends = controller.getTrends(request.getParameter("from"),request.getParameter("to"));
                         
                     %>
                     
 			<div class="leftCol">
-                            <form id="trendForm">
-                                
-                                <input type="submit" name="submit" value="CREATE CHART" />
-                                
+                <form id="trendForm">
+                <input type="submit" name="submit" value="CREATE CHART" />
 				<div class="block">
 					<div class="title">
 						<h2>Most popular trends</h2>
 					</div>
 					<ul>
+                        <% for (String hashtag : trends) { %>
 						<li>
-							<input type="checkbox" name="" value="" /> trend#1
+							<input type="checkbox" name="hashtags[]" value="<%= hashtag %>" /> <%= hashtag %>
 						</li>
-						<li>
-							<input type="checkbox" name="" value="" /> trend#2
-						</li>
-						<li>
-							<input type="checkbox" name="" value="" /> trend#3
-						</li>
-						<li>
-							<input type="checkbox" name="" value="" /> trend#4
-						</li>
-						<li>
-							<input type="checkbox" name="" value="" /> trend#5
-						</li>
-						<li>
-							<input type="checkbox" name="" value="" /> trend#6
-						</li>
-						<li>
-							<input type="checkbox" name="" value="" /> trend#7
-						</li>
-						<li>
-							<input type="checkbox" name="" value="" /> trend#8
-						</li>
-						<li>
-							<input type="checkbox" name="" value="" /> trend#9
-						</li>
-						<li>
-							<input type="checkbox" name="" value="" /> trend#10
-						</li>
+                        <% } %>
 					</ul>
 				</div>
-                            </form>
+                </form>
 			</div>
 			<div class="rightCol">
 				<img src="https://chart.googleapis.com/chart?cht=lc&chs=480x320&chd=t:60,70,20,80,90|10,20,67,22,57&chxt=x,y&chxl=0:|1|2|3|4|5|1:||20||40||60||80||100&chdl=hastag|twitter&chco=3072F3,ff0000,00aaaa" alt="chart" />
@@ -95,6 +66,17 @@
                                         %>
 		</div>
 	</div>
+
+    <%
+         if (request.getParameter("reload") != null) {
+              controller.reloadData();
+         }
+    %>
+    <div class="reloadData">
+        <form id="reloadData">
+            <input type="submit" name="reload" value="RELOAD DATA" />
+        </form>
+    </div>
         
     </body>
 </html>

@@ -3,12 +3,14 @@ package com.skrasek.school.pb138.tests;
 import org.junit.*;
 import static org.junit.Assert.*;
 import com.skrasek.school.pb138.StatsModel;
+import com.skrasek.school.pb138.Trend;
 import java.io.IOException;
 import java.util.Calendar;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import org.xml.sax.SAXException;
 import java.net.URI;
+import java.util.Map;
 
 
 
@@ -45,15 +47,34 @@ public class StatsModelTest {
     }
 
     @Test
+    public void getStats() throws XPathExpressionException {
+        Calendar s, e;
+
+        s = Calendar.getInstance();
+        s.set(2012, 5 - 1, 28, 10, 0);
+        e = Calendar.getInstance();
+        e.set(2012, 5 - 1, 28, 12, 0);
+
+        Map<String,Trend> trends = model.getStats(s.getTime(), e.getTime());
+        assertSame(5, trends.size());
+
+        Trend t = new Trend("#hashtag", "query");
+        t.addTermin("201205281000");
+        t.addTermin("201205281200");
+
+        assertEquals(t, trends.get("#hashtag"));
+    }
+
+    @Test
     public void findData() throws XPathExpressionException {
         Calendar s, e;
-        
+
         s = Calendar.getInstance();
         s.set(2012, 5 - 1, 28, 11, 0);
         e = Calendar.getInstance();
         e.set(2012, 5 - 1, 28, 12, 0);
 
-        assertSame(2, model.findData(s.getTime(), e.getTime()).getLength());
+        assertSame(3, model.findData(s.getTime(), e.getTime()).getLength());
 
 
         s = Calendar.getInstance();
@@ -61,7 +82,7 @@ public class StatsModelTest {
         e = Calendar.getInstance();
         e.set(2012, 5 - 1, 28, 12, 0);
 
-        assertSame(5, model.findData(s.getTime(), e.getTime()).getLength());
+        assertSame(6, model.findData(s.getTime(), e.getTime()).getLength());
 
 
         s = Calendar.getInstance();

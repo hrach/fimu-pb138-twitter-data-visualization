@@ -18,14 +18,18 @@ public class Trend {
     private String name;
     private String query;
 
-    Trend(String tag, String query)
+    public Trend(String tag, String query)
     {
+        if (tag == null) {
+            throw new NullPointerException("tag name");
+        }
+
         this.name = tag;
         this.query = query;
         this.data = new HashMap<String, Integer>();
     }
 
-    void addTermin(String date)
+    public void addTermin(String date)
     {
         if (data.containsKey(date)) {
             data.put(date, data.get(date) + 1);
@@ -34,7 +38,7 @@ public class Trend {
         }
     }
 
-    int getCount(String date)
+    public int getCount(String date)
     {
         if (data.containsKey(date)) {
             return data.get(date).intValue();
@@ -43,14 +47,29 @@ public class Trend {
         }
     }
 
-    String getName()
+    public String getName()
     {
         return this.name;
     }
 
-    String getQuery()
+    public String getQuery()
     {
         return this.query;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        Trend t = (Trend) o;
+        return this.getName().equals(t.getName()) && this.data.equals(t.data);
+    }
+
+    @Override
+    public int hashCode() {
+        int i = 7;
+        i += 13 * getName().hashCode();
+        i += 17 * data.hashCode();
+        return i;
     }
 
 }

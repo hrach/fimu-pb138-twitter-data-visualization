@@ -27,4 +27,12 @@ $(document).ready(function(){
           $b.removeAttr('disabled');
       }
    });
+   
+   $("form#trendForm").submit(function(){
+      var $b = $('input[type=checkbox]');
+      if($b.filter(':checked').length == 0) {
+          alert("Pro zobrazení dat musíte vybrat alespoň 1 trend.");
+          return false;
+      }
+   });
 });

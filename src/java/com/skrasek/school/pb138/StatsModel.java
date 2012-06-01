@@ -69,9 +69,7 @@ public class StatsModel extends BaseModel
         // xpath 2 approach
         // /doc/event[xs:date(@date) le xs:date('2011-08-31') and xs:date(@date) ge xs:date('2011-08-01')]
 
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyyMMddHHmm");
-
-        String query = "//trendsgroup[@date >= " + sdf.format(start) + " and @date <= " + sdf.format(end) + "]/trend";
+        String query = "//trendsgroup[@date >= " + DateUtils.fromDateToString(start) + " and @date <= " + DateUtils.fromDateToString(end) + "]/trend";
         XPathExpression expr = getxPath().compile(query);
 
         return (NodeList) expr.evaluate(doc, XPathConstants.NODESET);

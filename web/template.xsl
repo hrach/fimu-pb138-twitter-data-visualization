@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:output encoding="utf-8" method="html"/>
+    <xsl:template match="documentroot">
+        <!DOCTYPE html>
+            <html>
+                <head>
+                    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                    <title>PB138 - Twitter data visualization</title>
+                    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
+                    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/smoothness/jquery-ui-1.8.20.custom.css" />
+
+                    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+                    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+                    <script type="text/javascript" src="${pageContext.request.contextPath}/js/scripts.js"></script>
+                </head>
+                <body>
+                    <div id="container">
+                        <div id="header">
+                            <h1>PB138 - Twitter data visualization</h1>
+                        </div>
+                        <div id="content">
+                            <div class="topRow">
+                                <form id="dateForm" action="index.jsp" method="POST">
+                                    <xsl:apply-templates select="interval" mode="datepick" />
+                                </form>
+                            </div>
+                            <div class="leftCol">
+                                <form id="trendForm">
+                                    <xsl:apply-templates select="interval" mode="charthidden" />
+
+                                    <div class="block">
+                                        <div class="title">
+                                            <h2>Most popular trends</h2>
+                                        </div>
+                                        <ul>
+                                            <xsl:apply-templates select="trends/trend" />
+                                        </ul>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="rightCol">
+                                <xsl:apply-templates select="url" />
+				<img src="<%= controller.getChartUrl() %>" alt="chart" />
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="reloadData">
+                        <form id="reloadData">
+                            <input type="submit" name="reload" value="RELOAD DATA" />
+                        </form>
+                    </div>
+                </body>
+            </html>
+    </xsl:template>
+    
+    <xsl:template match="url">
+        <xsl:element name="img">
+            <xsl:attribute name="alt">chart</xsl:attribute>
+            <xsl:attribute name="src">
+                <xsl:value-of select="."/>
+            </xsl:attribute>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="trends/trend">
+        <li>
+            <xsl:element name="input">
+                <xsl:attribute name="type">checkbox</xsl:attribute>
+                <xsl:attribute name="name">hashtags</xsl:attribute>
+                <xsl:attribute name="class">htag</xsl:attribute>
+                <xsl:attribute name="value">
+                    <xsl:value-of select="."/>
+                </xsl:attribute>
+                <xsl:if test="@selected=='true'">
+                    <xsl:attribute name="checked">checked</xsl:attribute>
+                </xsl:if>
+            </xsl:element>
+            <xsl:value-of select="."/>
+        </li>
+    </xsl:template>
+    
+    <xsl:template match="interval" mode="charthidden">
+        <input type="submit" name="submit" value="CREATE CHART" />
+        <xsl:element name="input">
+            <xsl:attribute name="type">hidden</xsl:attribute>
+            <xsl:attribute name="name">from</xsl:attribute>
+            <xsl:attribute name="value">
+                <xsl:value-of select="from"/>
+            </xsl:attribute>
+        </xsl:element>
+        <xsl:element name="input">
+            <xsl:attribute name="type">hidden</xsl:attribute>
+            <xsl:attribute name="name">to</xsl:attribute>
+            <xsl:attribute name="value">
+                <xsl:value-of select="to"/>
+            </xsl:attribute>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="interval" mode="datepick">
+        <xsl:text>Choose time interval: </xsl:text>
+        <xsl:element name="input">
+            <xsl:attribute name="type">text</xsl:attribute>
+            <xsl:attribute name="name">from</xsl:attribute>
+            <xsl:attribute name="id">from</xsl:attribute>
+            <xsl:attribute name="value">
+                <xsl:value-of select="from"/>
+            </xsl:attribute>
+        </xsl:element>
+        <xsl:text> - </xsl:text>
+        <xsl:element name="input">
+            <xsl:attribute name="type">text</xsl:attribute>
+            <xsl:attribute name="name">to</xsl:attribute>
+            <xsl:attribute name="id">to</xsl:attribute>
+            <xsl:attribute name="value">
+                <xsl:value-of select="to"/>
+            </xsl:attribute>
+        </xsl:element>
+        <input type="submit" name="submit" value="SUBMIT" />
+    </xsl:template>
+    
+</xsl:stylesheet>

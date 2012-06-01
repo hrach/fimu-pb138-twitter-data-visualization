@@ -42,7 +42,7 @@ public class ImportModel extends BaseModel {
 
         for (Object key : trends.keySet()) {
             String entryKey = key.toString();
-            String date = formatDate(entryKey);
+            String date = DateUtils.fromJsonToString(entryKey);
             Element node;
 
             try {
@@ -53,9 +53,6 @@ public class ImportModel extends BaseModel {
             }
 
             if (node == null) {
-                //NodeList rootList = doc.getElementsByTagName("trends");
-                //Element root = (Element) rootList.item(0);
-
                 node = doc.createElement("trendsgroup");
                 node.setAttribute("date", date);
                 doc.getDocumentElement().appendChild(node);
@@ -73,11 +70,6 @@ public class ImportModel extends BaseModel {
         }
 
         saveDb();
-    }
-
-    private String formatDate(String twDate)
-    {
-        return twDate.replace("-", "").replace(" ", "").replace(":", "");
     }
 
     private String parseData()

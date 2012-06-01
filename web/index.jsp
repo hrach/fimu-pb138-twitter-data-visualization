@@ -2,7 +2,7 @@
 <%@page import="com.skrasek.school.pb138.Controller"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    Controller controller = new Controller();
+    Controller controller = new Controller(request);
 %>
 <!DOCTYPE html>
 <html>
@@ -36,13 +36,15 @@
                    
                     <%
                         if (request.getParameter("from") != null) {
-                            Set<String> trends = controller.getTrends(request.getParameter("from"),request.getParameter("to"));
+                            Set<String> trends = controller.getTrends();
                         
                     %>
                     
 			<div class="leftCol">
                 <form id="trendForm">
                 <input type="submit" name="submit" value="CREATE CHART" />
+                <input type="hidden" name="from" value="<%= fromstr %>" />
+                <input type="hidden" name="to" value="<%= tostr %>" />
 				<div class="block">
 					<div class="title">
 						<h2>Most popular trends</h2>
@@ -50,7 +52,7 @@
 					<ul>
                         <% for (String hashtag : trends) { %>
 						<li>
-							<input type="checkbox" name="hashtags[]" value="<%= hashtag %>" class="htag" /> <%= hashtag %>
+							<input type="checkbox" name="hashtags" value="<%= hashtag %>" class="htag" /> <%= hashtag %>
 						</li>
                         <% } %>
 					</ul>
@@ -58,7 +60,7 @@
                 </form>
 			</div>
 			<div class="rightCol">
-				<img src="https://chart.googleapis.com/chart?cht=lc&chs=480x320&chd=t:60,70,20,80,90|10,20,67,22,57&chxt=x,y&chxl=0:|1|2|3|4|5|1:||20||40||60||80||100&chdl=hastag|twitter&chco=3072F3,ff0000,00aaaa" alt="chart" />
+				<img src="<%= controller.getChartUrl() %>" alt="chart" />
 			</div>
 			<div class="clear"></div>
                                         <%

@@ -50,9 +50,19 @@
 						<h2>Most popular trends</h2>
 					</div>
 					<ul>
-                        <% for (String hashtag : trends) { %>
+                        <% 
+                            for (String hashtag : trends) {
+                            String checked = "";
+                            if(request.getParameterValues("hashtags") != null) {
+                                for(String s : request.getParameterValues("hashtags")) {
+                                    if(s.equals(hashtag)) {
+                                        checked=" checked=\"checked\"";
+                                    }
+                                }
+                            }
+                        %>
 						<li>
-							<input type="checkbox" name="hashtags" value="<%= hashtag %>" class="htag" /> <%= hashtag %>
+							<input type="checkbox" name="hashtags" value="<%= hashtag %>" class="htag"<%= checked %> /> <%= hashtag %>
 						</li>
                         <% } %>
 					</ul>

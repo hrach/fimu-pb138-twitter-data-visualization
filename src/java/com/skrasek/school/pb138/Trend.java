@@ -1,15 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skrasek.school.pb138;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
- *
+ * Trend model
  * @author Jan Skrasek <hrach.cz@gmail.com>
  */
 public class Trend {
@@ -31,6 +28,7 @@ public class Trend {
 
     public void addTermin(String date)
     {
+        date = date.substring(0, 8) + "0000";
         if (data.containsKey(date)) {
             data.put(date, data.get(date) + 1);
         } else {
@@ -40,6 +38,7 @@ public class Trend {
 
     public int getCount(String date)
     {
+        date = date.substring(0, 8) + "0000";
         if (data.containsKey(date)) {
             return data.get(date).intValue();
         } else {

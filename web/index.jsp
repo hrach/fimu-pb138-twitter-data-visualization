@@ -50,7 +50,7 @@
 					<ul>
                         <% for (String hashtag : trends) { %>
 						<li>
-							<input type="checkbox" name="hashtags[]" value="<%= hashtag %>" /> <%= hashtag %>
+							<input type="checkbox" name="hashtags[]" value="<%= hashtag %>" class="htag" /> <%= hashtag %>
 						</li>
                         <% } %>
 					</ul>

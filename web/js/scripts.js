@@ -18,4 +18,13 @@ $(document).ready(function(){
           return false;
       }
    });
+   
+   $(".htag").click(function() {
+      var $b = $('input[type=checkbox]');
+      if($b.filter(':checked').length >= 10) {
+          $b.filter(':not(:checked)').attr('disabled','disabled');
+      } else {
+          $b.removeAttr('disabled');
+      }
+   });
 });

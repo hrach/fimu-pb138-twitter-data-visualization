@@ -1,5 +1,6 @@
 <%@page import="java.util.Set"%>
 <%@page import="com.skrasek.school.pb138.Controller"%>
+<%@page import="com.skrasek.school.pb138.XMLRender"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     Controller controller = new Controller();
@@ -37,7 +38,9 @@
                     <%
                         if (request.getParameter("from") != null) {
                             Set<String> trends = controller.getTrends(request.getParameter("from"),request.getParameter("to"));
-                        
+                            XMLRender xmlRender = new XMLRender(trends,request.getParameter("from"),request.getParameter("to"));
+                            String xmlformat="";
+                            if(xmlRender!=null) xmlformat = xmlRender.toString();
                     %>
                     
 			<div class="leftCol">

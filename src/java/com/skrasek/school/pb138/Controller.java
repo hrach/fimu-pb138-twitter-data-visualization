@@ -48,6 +48,10 @@ public class Controller {
 
         Date s = DateUtils.fromStringToDate(from);
         Date e = DateUtils.fromStringToDate(to);
+        Calendar c = Calendar.getInstance();
+        c.setTime(e);
+        c.add(Calendar.DAY_OF_MONTH, 1);
+        e = c.getTime();
 
         dateList = DateUtils.getList(s, e);
   

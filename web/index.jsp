@@ -1,15 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="${pageContext.request.contextPath}/template.xsl"?>
+<%@page contentType="text/xml"%>
 <%@page import="java.util.Set"%>
 <%@page import="com.skrasek.school.pb138.Controller"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     Controller controller = new Controller(request);
     String fromstr = "";
     String tostr = "";
-    if(request.getParameter("from") != null) fromstr = " datefrom=\"" + request.getParameter("from") + "\"";
-    if(request.getParameter("to") != null) tostr = " dateto=\"" + request.getParameter("to") + "\"";
+    if(request.getParameter("from") != null) fromstr = request.getParameter("from");
+    if(request.getParameter("to") != null) tostr = request.getParameter("to");
 %>
+<?xml-stylesheet href="${pageContext.request.contextPath}/template.xsl" type="text/xsl"?>
 <documentroot>
     <interval>
     <from><%= fromstr %></from>
@@ -31,17 +30,14 @@
                 }
             }
         %>
-        <trend<%= checked %>><%= hashtag %></trend>
-    </trends>
+        <trend<%= checked %>><%= hashtag.replaceAll("&","&amp;") %></trend>
     <% } %>
+    </trends>
     <url>
-        <%= controller.getChartUrl() %>
+        <%= controller.getChartUrl().replaceAll("&","&amp;") %>
     </url>
 <%
    }
-%>
-
-<%
      if (request.getParameter("reload") != null) {
           controller.reloadData();
      }

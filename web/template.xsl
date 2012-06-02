@@ -80,8 +80,7 @@
                     <xsl:attribute name="checked">checked</xsl:attribute>
                 </xsl:if>
             </xsl:element>
-            <xsl:value-of select="."/>
-            (<xsl:value-of select="@count"/>)
+            <span><xsl:value-of select="."/></span> (<xsl:value-of select="@count"/>)
         </li>
     </xsl:template>
     

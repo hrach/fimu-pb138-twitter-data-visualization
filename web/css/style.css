@@ -165,12 +165,21 @@ div#content div.leftCol div.block ul li {
         border-bottom: 1px solid #dddddd;
         font-size: 0.75em;
 }
+div#content div.leftCol div.block ul li span, div#content div.leftCol div.block ul li input[type=checkbox] {
+        float: left;
+}
+div#content div.leftCol div.block ul li span {
+        white-space: nowrap;  
+        overflow: hidden;              /* "overflow" value must be different from "visible" */   
+        text-overflow: ellipsis;  
+        width: 165px;
+}
 div#content div.leftCol div.block ul li.large {
         height: 40px;
         line-height: 40px;
 }
 div#content div.leftCol div.block ul li input[type=checkbox] {
-        margin: 0 10px 0 0;
+        margin: 10px 10px 0 0;
 }
 div#content div.leftCol div.block ul li select {
         width: 210px;

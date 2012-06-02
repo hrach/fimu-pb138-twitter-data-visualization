@@ -73,7 +73,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template match="trends/trend">
         <li>
             <xsl:element name="input">

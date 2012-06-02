@@ -53,7 +53,10 @@ public class DateUtils {
         s.set(
                 Integer.parseInt(date.substring(0, 4)),
                 Integer.parseInt(date.substring(5, 7)) - 1,
-                Integer.parseInt(date.substring(8))
+                Integer.parseInt(date.substring(8)),
+                0,
+                0,
+                0
         );
         return s.getTime();
     }

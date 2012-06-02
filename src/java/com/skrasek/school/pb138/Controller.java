@@ -1,8 +1,12 @@
 package com.skrasek.school.pb138;
 
+import com.sun.media.sound.SF2GlobalRegion;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.*;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
@@ -93,9 +97,30 @@ public class Controller {
         return data;
     }
 
-    public void reloadData() throws SAXException, ParserConfigurationException, IOException {
+    public void reloadData() throws SAXException, ParserConfigurationException, IOException, ParseException {
+        Calendar today = new GregorianCalendar();
+        today.setTime(new Date());
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+
         ImportModel importModel = new ImportModel(dbFileName);
-        importModel.importData();
+        String maxDate = importModel.getMaxDate();
+        Calendar lastDate;
+        if (maxDate != null) {
+            maxDate = maxDate.substring(0, 8);
+            lastDate = DateUtils.fromDbStringToCalendar(maxDate);
+        } else {
+            lastDate = Calendar.getInstance();
+            lastDate.setTime(new Date());
+            lastDate.add(Calendar.DAY_OF_MONTH, -10);
+        }
+
+        while (lastDate.getTimeInMillis() < today.getTimeInMillis()) {
+            importModel.importData(DateUtils.fromCalendarToJsonString(lastDate));
+            lastDate.add(Calendar.DAY_OF_MONTH, 1);
+        }
     }
 
 }

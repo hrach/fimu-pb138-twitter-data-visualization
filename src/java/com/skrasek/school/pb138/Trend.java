@@ -9,11 +9,13 @@ import java.util.Map;
  * Trend model
  * @author Jan Skrasek <hrach.cz@gmail.com>
  */
-public class Trend {
+public class Trend implements Comparable<Trend>
+{
 
     private Map<String, Integer> data;
     private String name;
     private String query;
+    private int sum;
 
     public Trend(String tag, String query)
     {
@@ -34,6 +36,7 @@ public class Trend {
         } else {
             data.put(date, 1);
         }
+        sum += 1;
     }
 
     public int getCount(String date)
@@ -54,6 +57,11 @@ public class Trend {
     public String getQuery()
     {
         return this.query;
+    }
+
+    public int compareTo(Trend o)
+    {
+        return o.sum - this.sum;
     }
 
     @Override

@@ -58,8 +58,10 @@ public class Controller {
         }
     }
 
-    public Set<String> getTrends() {
-        return stats.keySet();
+    public List<Trend> getTrends() {
+        List<Trend> tags = new ArrayList<Trend>(stats.values());
+        Collections.sort(tags);
+        return tags;
     }
 
     public String getChartUrl()

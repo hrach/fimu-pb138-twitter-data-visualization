@@ -1,4 +1,5 @@
 <%@page contentType="text/xml"%>
+<%@page pageEncoding="UTF-8" %>
 <%@page import="java.util.List"%><%@page import="com.skrasek.school.pb138.Controller"%><%@page import="com.skrasek.school.pb138.Trend"%>
 <%
     Controller controller = new Controller(request);

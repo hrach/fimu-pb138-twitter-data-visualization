@@ -28,7 +28,7 @@ public class ChartUrl {
         String days = "";
         String points = "";
         String markers = "";
-        String url = "https://chart.googleapis.com/chart?cht=lc&chs=480x320&chxt=x,y&chco=c00000,005cda,0ada00,a400da,f09800,00e0ce,e8e500,78bcfc,f69371,91ec8f";
+        String url = "https://chart.googleapis.com/chart?cht=lc&chs=780x320&chxt=x,y&chco=c00000,005cda,0ada00,a400da,f09800,00e0ce,e8e500,78bcfc,f69371,91ec8f";
         String[] color = {"c00000","005cda","0ada00","a400da","f09800","00e0ce","e8e500","78bcfc","f69371","91ec8f"};
         
         int maxval = 0;

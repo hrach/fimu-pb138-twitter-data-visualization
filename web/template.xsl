@@ -122,7 +122,7 @@
                 <xsl:value-of select="to"/>
             </xsl:attribute>
         </xsl:element>
-        <input type="submit" name="submit" value="SUBMIT" />
+        <input type="submit" name="submit" value="FILTER" />
     </xsl:template>
     
 </xsl:stylesheet>

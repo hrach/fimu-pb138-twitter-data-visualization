@@ -3,7 +3,7 @@
 body { background: #eeeeee; color: #222222; }
 		
 div#container {
-        width: 800px;
+        width: 1100px;
         margin: 30px auto;
         font-family: Helvetica, Verdana, Arial;
         border: 1px solid #444444;
@@ -12,7 +12,7 @@ div#container {
 }
 		
 div#header {
-        width: 760px;
+        width: 1060px;
         height: 50px;
         border-radius: 8px;
         border-bottom-left-radius: 0;
@@ -34,12 +34,12 @@ div#header h1 {
 }
 
 div#content {
-        width: 760px;
+        width: 1060px;
         padding: 20px;
 }
 div#content div.topRow {
         height: 40px;
-        width: 728px;
+        width: 1028px;
         border: 1px solid #cccccc;
         border-radius: 4px;
         padding: 0 15px;
@@ -176,7 +176,7 @@ div#content div.leftCol div.block ul li select {
         width: 210px;
 }
 div#content div.rightCol{
-        width: 480px;
+        width: 780px;
         margin: 40px 10px 0 0;
         float: right;
 }
@@ -190,7 +190,7 @@ div.ui-datepicker {
 }
 
 div.reloadData {
-    width: 760px;
+    width: 1100px;
     margin: -20px auto 20px auto;
 }
 div.reloadData input[type=submit] {

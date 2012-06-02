@@ -34,7 +34,7 @@
     <% } %>
     </trends>
     <url>
-        <%= controller.getChartUrl().replaceAll("&","&amp;") %>
+        <%= controller.getChartUrl().replaceAll("&","&amp;").replaceAll("<", "&lt;") %>
     </url>
 <%
    }

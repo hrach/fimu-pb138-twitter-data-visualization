@@ -30,11 +30,11 @@
                 }
             }
         %>
-        <trend<%= checked %>><%= hashtag.replaceAll("&","&amp;") %></trend>
+        <trend<%= checked %>><%= hashtag.replaceAll("&","&amp;").replaceAll("<","&lt;") %></trend>
     <% } %>
     </trends>
     <url>
-        <%= controller.getChartUrl().replaceAll("&","&amp;") %>
+        <%= controller.getChartUrl().replaceAll("&","&amp;").replaceAll("#","%23") %>
     </url>
 <%
    }

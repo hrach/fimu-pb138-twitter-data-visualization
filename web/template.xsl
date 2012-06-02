@@ -59,12 +59,19 @@
     </xsl:template>
     
     <xsl:template match="url">
-        <xsl:element name="img">
-            <xsl:attribute name="alt">chart</xsl:attribute>
-            <xsl:attribute name="src">
-                <xsl:value-of select="."/>
-            </xsl:attribute>
-        </xsl:element>
+        <xsl:choose>
+            <xsl:when test="not(normalize-space(.))">
+                Choose some hashtags/trends.
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:element name="img">
+                    <xsl:attribute name="alt">Google chart image</xsl:attribute>
+                    <xsl:attribute name="src">
+                        <xsl:value-of select="."/>
+                    </xsl:attribute>
+                </xsl:element>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <xsl:template match="trends/trend">

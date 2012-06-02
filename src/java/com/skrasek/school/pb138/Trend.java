@@ -64,6 +64,11 @@ public class Trend implements Comparable<Trend>
         return o.sum - this.sum;
     }
 
+    public int getSum()
+    {
+        return sum;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null) return false;

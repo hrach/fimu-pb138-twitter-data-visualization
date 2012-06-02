@@ -29,7 +29,7 @@
                 }
             }
         %>
-        <trend<%= checked %>><%= hashtag.getName().replaceAll("&","&amp;").replaceAll("<","&lt;") %></trend>
+        <trend<%= checked %> count="<%= hashtag.getSum() %>"><%= hashtag.getName().replaceAll("&","&amp;").replaceAll("<","&lt;") %></trend>
     <% } %>
     </trends>
     <url>

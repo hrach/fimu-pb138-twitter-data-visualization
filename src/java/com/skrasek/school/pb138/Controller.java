@@ -1,6 +1,5 @@
 package com.skrasek.school.pb138;
 
-import com.sun.media.sound.SF2GlobalRegion;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -120,7 +119,7 @@ public class Controller {
         } else {
             lastDate = Calendar.getInstance();
             lastDate.setTime(new Date());
-            lastDate.add(Calendar.DAY_OF_MONTH, -10);
+            lastDate.add(Calendar.DAY_OF_MONTH, -28);
         }
 
         while (lastDate.getTimeInMillis() < today.getTimeInMillis()) {

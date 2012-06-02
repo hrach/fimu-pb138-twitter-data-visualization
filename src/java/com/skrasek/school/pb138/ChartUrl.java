@@ -42,7 +42,11 @@ public class ChartUrl {
             names += entry.getKey().replaceAll("&", "%26").replaceAll("#","%23") + "|";
             
             for (Integer i : entry.getValue()) {
-                values += (i*(100/maxval)) + ",";
+                if (i == 0) {
+                    values += "_,";
+                } else {
+                    values += (i*(100/maxval)) + ",";
+                }
             }
 
             values = values.substring(0, values.length() - 1);

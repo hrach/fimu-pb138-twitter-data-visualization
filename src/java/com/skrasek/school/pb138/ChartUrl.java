@@ -49,7 +49,7 @@ public class ChartUrl {
                 if (i == 0) {
                     values += "_,";
                 } else {
-                    values += (i*(100/maxval)) + ",";
+                    values += Math.round(i*(100.0/maxval)) + ",";
                     markers += "s," + color[dataSet] + "," + dataSet + "," + pos + ",7|";
                 }
                 pos += 1;

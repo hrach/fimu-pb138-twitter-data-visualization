@@ -1,6 +1,7 @@
 package com.skrasek.school.pb138;
 
 
+import com.sun.xml.ws.mex.server.MEXEndpoint;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.io.*;
@@ -33,9 +34,22 @@ public class ImportModel extends BaseModel {
         super(uri);
     }
 
-    public void importData()
+    public String getMaxDate()
     {
-        String json = parseData();
+        try {
+            // /foo/bar/@score[not(. &lt; ../../bar/@score)][1]
+            XPathExpression expr = getxPath().compile("//trendsgroup/@date[not(. < //trendsgroup/@date)][1]");
+            String max = (String) expr.evaluate(this.doc, XPathConstants.STRING);
+            if (max.isEmpty()) return null;
+            else return max;
+        } catch (XPathExpressionException ex) {
+            return null;
+        }
+    }
+
+    public void importData(String fromDate)
+    {
+        String json = parseData(fromDate);
         
         JSONObject jsonObj  = (JSONObject) JSONValue.parse(json);
         JSONObject trends = (JSONObject) jsonObj.get("trends");
@@ -72,7 +86,7 @@ public class ImportModel extends BaseModel {
         saveDb();
     }
 
-    private String parseData()
+    private String parseData(String fromDate)
     {
         URL u;
         InputStream is = null;
@@ -81,7 +95,7 @@ public class ImportModel extends BaseModel {
 
         res = "";
         try {
-            u = new URL("https://api.twitter.com/1/trends/daily.json");
+            u = new URL("https://api.twitter.com/1/trends/daily.json?date=" + fromDate);
 
             is = u.openStream();         // throws an IOException
             dis = new DataInputStream(new BufferedInputStream(is));

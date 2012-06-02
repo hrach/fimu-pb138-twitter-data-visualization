@@ -39,7 +39,7 @@ public class ChartUrl {
         }
 
         for (Map.Entry<String, List<Integer>> entry : this.trends.entrySet()) {
-            names += entry.getKey() + "|";
+            names += entry.getKey().replaceAll("&", "%26").replaceAll("#","%23") + "|";
             
             for (Integer i : entry.getValue()) {
                 values += (i*(100/maxval)) + ",";
@@ -53,7 +53,7 @@ public class ChartUrl {
         values = values.substring(0, values.length() - 1);
         
         for (Date day : dayList) {
-            days += "|" + DateUtils.fromDateToString(day);
+            days += "|" + DateUtils.fromDateToGraphString(day);
         }
         
         for (int i=1; i<=maxval; i += 1) {

@@ -1,6 +1,8 @@
 package com.skrasek.school.pb138;
 
 import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,15 +37,19 @@ public class DateUtils {
 
     public static String fromDateToString(Date date)
     {
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyyMMddHHmm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
         return sdf.format(date);
     }
 
-    public static Date fromStringToDate(String date) {
+    public static String fromDateToGraphString(Date date)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
+        return sdf.format(date);
+    }
+
+    public static Date fromStringToDate(String date)
+    {
         Calendar s = Calendar.getInstance();
-        int a = Integer.parseInt(date.substring(0, 4));
-        int b = Integer.parseInt(date.substring(5, 7));
-        int c = Integer.parseInt(date.substring(8));
         s.set(
                 Integer.parseInt(date.substring(0, 4)),
                 Integer.parseInt(date.substring(5, 7)) - 1,
@@ -52,4 +58,17 @@ public class DateUtils {
         return s.getTime();
     }
 
+    public static Calendar fromDbStringToCalendar(String date) throws ParseException
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        Calendar c = Calendar.getInstance();
+        c.setTime(sdf.parse(date));
+        return c;
+    }
+
+    public static String fromCalendarToJsonString(Calendar date)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(date.getTime());
+    }
 }

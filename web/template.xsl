@@ -81,6 +81,7 @@
                 </xsl:if>
             </xsl:element>
             <xsl:value-of select="."/>
+            (<xsl:value-of select="@count"/>)
         </li>
     </xsl:template>
     

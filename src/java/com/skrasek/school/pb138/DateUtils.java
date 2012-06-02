@@ -41,6 +41,12 @@ public class DateUtils {
         return sdf.format(date);
     }
 
+    public static String fromDateToGraphString(Date date)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
+        return sdf.format(date);
+    }
+
     public static Date fromStringToDate(String date)
     {
         Calendar s = Calendar.getInstance();
@@ -65,5 +71,4 @@ public class DateUtils {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(date.getTime());
     }
-
 }

@@ -27,7 +27,9 @@ public class ChartUrl {
         String values = "";
         String days = "";
         String points = "";
+        String markers = "";
         String url = "https://chart.googleapis.com/chart?cht=lc&chs=480x320&chxt=x,y&chco=c00000,005cda,0ada00,a400da,f09800,00e0ce,e8e500,78bcfc,f69371,91ec8f";
+        String[] color = {"c00000","005cda","0ada00","a400da","f09800","00e0ce","e8e500","78bcfc","f69371","91ec8f"};
         
         int maxval = 0;
         int graphSize = 320;
@@ -38,23 +40,29 @@ public class ChartUrl {
             }
         }
 
+        int dataSet = 0;
         for (Map.Entry<String, List<Integer>> entry : this.trends.entrySet()) {
             names += entry.getKey().replaceAll("&", "%26").replaceAll("#","%23") + "|";
-            
+               
+            int pos = 0;
             for (Integer i : entry.getValue()) {
                 if (i == 0) {
                     values += "_,";
                 } else {
                     values += (i*(100/maxval)) + ",";
+                    markers += "s," + color[dataSet] + "," + dataSet + "," + pos + ",7|";
                 }
+                pos += 1;
             }
 
             values = values.substring(0, values.length() - 1);
             values += "|";
+            dataSet += 1;
         }
         
         names = names.substring(0, names.length() - 1);
         values = values.substring(0, values.length() - 1);
+        markers = markers.substring(0, markers.length() - 1);
         
         for (Date day : dayList) {
             days += "|" + DateUtils.fromDateToGraphString(day);
@@ -67,6 +75,7 @@ public class ChartUrl {
         url += "&chd=t:" + values;
         url += "&chxl=0:" + days + "|1:|" + points;
         url += "&chdl=" + names;
+        url += "&chm=" + markers;
         return url;
     }
     
